@@ -3,3 +3,7 @@ Theme name: Fictional University
 Author: Vladys
 Version: 1.0.0
 */
+
+body {
+    color: orange;
+}
