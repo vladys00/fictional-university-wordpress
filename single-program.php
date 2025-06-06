@@ -24,7 +24,55 @@
             </div>
             <!-- insert the content of the post down here  -->
             <p><?php the_content() ;?></p>
+            <?php 
+            $today = date('Ymd');
+            $homePageEvents = new WP_Query(array(
+              'posts_per_page'=>2,
+              'post_type'=>'event',
+              'meta_key'=>'event_date',
+              'order_by'=>'meta_value_num',
+              'order'=>'DESC',
+              'meta_query'=>array(
+                array(
+                  'key'=>'event_date',
+                  'compare'=>'>=',
+                  'value'=>$today,
+                  'type'=>'numeric'
+                ),
+                array(
+                    'key'=>'related_programs',
+                    'compare'=>'LIKE',
+                    'value'=> '"'. get_the_ID(). '"',
+                )
+              )
+            ));
+
+            while ($homePageEvents->have_posts()){
+              $homePageEvents->the_post(); ?>
+                  <div class="event-summary">
+            <a class="event-summary__date t-center" href="<?php echo get_permalink() ?>">
+              <span class="event-summary__month"><?php 
+              $eventDate = new DateTime(get_field('event_date'));
+              echo $eventDate->format('M'); 
+              ?></span>
+              <span class="event-summary__day"><?php 
+              echo $eventDate->format('d'); 
+              ?></span>
+            </a>
+            <div class="event-summary__content">
+              <h5 class="event-summary__title headline headline--tiny"><a href="<?php echo get_permalink() ?>"><?php the_title(); ?></a></h5>
+              <p><?php  if (has_excerpt()){
+                echo get_the_excerpt();  // Display the post's excerpt if it exists.
+              } else { echo wp_trim_words(get_the_content(), 13);
+              }
+               ?><a href="<?php echo get_permalink() ?>" class="nu gray">Learn more</a></p>
+            </div>
+          </div>
+          <?php }
+          ?>
         </div>
+
+            
         <?php }
     
      get_footer();
