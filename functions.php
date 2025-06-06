@@ -18,6 +18,12 @@ function university_features() {
 add_action('after_setup_theme', 'university_features');
 
 function adjust_events_query($query) {
+
+    if(!is_admin() && is_post_type_archive('program') && $query->is_main_query()){
+        $query->set('order','ASC');
+        $query->set('posts_per_page', -1);
+        $query->set('orderby','title');
+    }
     
     if(!is_admin() && is_post_type_archive('event') && $query->is_main_query()){
         $today = date('Ymd');
