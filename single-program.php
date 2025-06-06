@@ -22,7 +22,6 @@
                     <span class="metabox__main"><?php the_title() ?></span>
                 </p>
             </div>
-            <!-- insert the content of the post down here  -->
             <p><?php the_content() ;?></p>
             <?php 
             $today = date('Ymd');
@@ -46,6 +45,9 @@
                 )
               )
             ));
+            if ($homePageEvents->have_posts()){
+                  echo '<hr class="section-break">';
+            echo '<h2 class="headline headline--medium"> Upcoming '. get_the_title() .' Events</h2>';
 
             while ($homePageEvents->have_posts()){
               $homePageEvents->the_post(); ?>
@@ -69,6 +71,9 @@
             </div>
           </div>
           <?php }
+
+            }
+          
           ?>
         </div>
 
