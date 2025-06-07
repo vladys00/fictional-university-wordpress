@@ -16,11 +16,13 @@
             
             <!-- insert the content of the post down here  -->
             <p><?php the_content() ;?></p>
+
+            
             <?php
                 $relatedPrograms = get_field('related_programs');
                 if ($relatedPrograms){
                     echo '<hr class="section-break">';
-                    echo '<h2 class="headline headline--medium">Related Programs</h2>';
+                    echo '<h2 class="headline headline--medium">Subject(s) taught</h2>';
                     echo '<ul class="link-list min-list">';
                     foreach($relatedPrograms as $program){?>
                     <li>
