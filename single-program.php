@@ -26,6 +26,7 @@
 
 
             <?php 
+            
 
             $relatedProfessors = new WP_Query(array(
               'posts_per_page'=>-1,
@@ -46,7 +47,7 @@
 
             while ($relatedProfessors->have_posts()){
               $relatedProfessors->the_post(); ?>
-            <li><a href="<?php get_the_permalink(); ?>"><?php the_title(); ?></a></li>
+            <li><a href="<?php the_permalink();  ?>"><?php the_title(); ?></a></li>
           <?php }
 
             }
