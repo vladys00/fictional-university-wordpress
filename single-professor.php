@@ -13,11 +13,19 @@
     <?php while(have_posts()){
         the_post(); ?>
         <div class="container container--narrow page-section">
-            
-            <!-- insert the content of the post down here  -->
-            <p><?php the_content() ;?></p>
+           
+            <div class="generic-content">
+                <div class="row group">
+                    <div class="one-third">
+                        <?php the_post_thumbnail(); ?>
+                    </div>
+                    <div class="two-thirds">
+                        <p><?php the_content() ;?></p>
+                    </div>
 
-            
+                </div>
+
+            </div>
             <?php
                 $relatedPrograms = get_field('related_programs');
                 if ($relatedPrograms){
