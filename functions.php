@@ -1,15 +1,28 @@
 <?php
 
-function pageBanner(){
+function pageBanner($args){
     //here will go the logic for the page banner
+    if(!$args['title']) {
+        $args['title'] = get_the_title();
+    }
+     if(!$args['subtitle']) {
+        $args['subtitle'] = get_field('page_banner_subtitle');
+    }
+     if(!$args['background_image']) {
+       if (get_field('page_banner_background_image')) {
+         $args['backround_image'] = get_field('page_banner_background_image')['sizes']['pageBanner'];
+       } else {
+         $args['background_image'] = get_theme_file_uri('/images/ocean.jpg');
+       }
+    }
     ?>
      <div class="page-banner">
         <div class="page-banner__bg-image" style="background-image: url(<?php $pageBannerImage = get_field('banner_image');
          echo $pageBannerImage['sizes']['pageBanner'] ?>)"></div>
         <div class="page-banner__content container container--narrow">
-            <h1 class="page-banner__title"><?php the_title(); ?></h1>
+            <h1 class="page-banner__title"><?php echo $args['title'] ?></h1>
             <div class="page-banner__intro">
-                <p><?php the_field('page_banner_subtitle') ?></p>
+                <p><?php echo $args['subtitle'] ?></p>
             </div>
         </div>
     </div>
