@@ -3,9 +3,7 @@ get_header();
 
 while (have_posts()) {
     the_post();
-    pageBanner(array(
-        'subtitle'=> 'This is a test page'
-    )); ?>
+    pageBanner(); ?>
     
    
 

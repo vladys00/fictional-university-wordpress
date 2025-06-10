@@ -1,14 +1,14 @@
 <?php
 
-function pageBanner($args){
+function pageBanner($args = NULL){
     //here will go the logic for the page banner
-    if(!$args['title']) {
+    if(!isset($args['title'])) {
         $args['title'] = get_the_title();
     }
-     if(!$args['subtitle']) {
+     if(!isset($args['subtitle'])) {
         $args['subtitle'] = get_field('page_banner_subtitle');
     }
-     if(!$args['background_image']) {
+     if(!isset($args['background_image'])) {
        if (get_field('page_banner_background_image')) {
          $args['backround_image'] = get_field('page_banner_background_image')['sizes']['pageBanner'];
        } else {
