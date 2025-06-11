@@ -8,7 +8,7 @@ function pageBanner($args = NULL){
      if(!isset($args['subtitle'])) {
         $args['subtitle'] = get_field('page_banner_subtitle');
     }
-     if(!isset($args['background_image'])) {
+     if(!isset($args['background_image']) AND !is_archive() AND !is_home() ){
        if (get_field('page_banner_background_image')) {
          $args['backround_image'] = get_field('page_banner_background_image')['sizes']['pageBanner'];
        } else {
