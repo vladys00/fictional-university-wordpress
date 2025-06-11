@@ -10,7 +10,11 @@ function pageBanner($args = NULL) {
     if (!isset($args['subtitle'])) {
         $args['subtitle'] = get_field('page_banner_subtitle');
     }
- 
+    // Optional: Handle empty subtitles
+    if (empty($args['subtitle'])) {
+        $args['subtitle'] = '<!-- No subtitle -->'; 
+    }
+    
     // Background Image
     if (!isset($args['background_image']) && !is_archive() && !is_home()) {
         if (get_field('page_banner_background_image')) {
@@ -18,6 +22,10 @@ function pageBanner($args = NULL) {
         } else {
             $args['background_image'] = get_theme_file_uri('/images/ocean.jpg');
         }
+    }
+    // Fallback for all pages (e.g., archives/home)
+    if (!isset($args['background_image'])) {
+        $args['background_image'] = get_theme_file_uri('/images/ocean.jpg');
     }
     ?>
     <div class="page-banner">
