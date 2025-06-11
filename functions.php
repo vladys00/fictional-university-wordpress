@@ -1,5 +1,14 @@
 <?php
 
+if (file_exists(__DIR__ . '/.env')) {
+    $lines = file(__DIR__ . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos(trim($line), '#') === 0) continue;
+        list($name, $value) = explode('=', $line, 2);
+        putenv(trim($name) . '=' . trim($value));
+    }
+}
+
 function pageBanner($args = NULL) {
     // Title
     if (!isset($args['title'])) {
@@ -87,7 +96,7 @@ function adjust_events_query($query) {
 add_action('pre_get_posts','adjust_events_query');
 
 function universityMapKey($api){
-    $api['key'] = 'AIzaSyBTP1GWfB5E-G-l3rybSvKbfNOYcDzobpg';
+    $api['key'] = getenv('GOOGLE_MAPS_API_KEY');
     return $api;
 }
 
