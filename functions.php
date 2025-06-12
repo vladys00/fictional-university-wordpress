@@ -79,6 +79,10 @@ function adjust_events_query($query) {
         $query->set('posts_per_page', -1);
         $query->set('orderby','title');
     }
+
+     if(!is_admin() && is_post_type_archive('campus') && $query->is_main_query()){
+        $query->set('posts_per_page', -1); 
+    }
     
     if(!is_admin() && is_post_type_archive('event') && $query->is_main_query()){
         $today = date('Ymd');

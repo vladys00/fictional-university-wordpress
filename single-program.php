@@ -50,40 +50,7 @@
           <?php }
           echo '</ul>';
             }
-
-            wp_reset_postdata();
-
-            $today = date('Ymd');
-            $homePageEvents = new WP_Query(array(
-              'posts_per_page'=>2,
-              'post_type'=>'event',
-              'meta_key'=>'event_date',
-              'order_by'=>'meta_value_num',
-              'order'=>'DESC',
-              'meta_query'=>array(
-                array(
-                  'key'=>'event_date',
-                  'compare'=>'>=',
-                  'value'=>$today,
-                  'type'=>'numeric'
-                ),
-                array(
-                    'key'=>'related_programs',
-                    'compare'=>'LIKE',
-                    'value'=> '"'. get_the_ID(). '"',
-                )
-              )
-            ));
-            if ($homePageEvents->have_posts()){
-                  echo '<hr class="section-break">';
-            echo '<h2 class="headline headline--medium"> Upcoming '. get_the_title() .' Events</h2>';
-
-            while ($homePageEvents->have_posts()){
-              $homePageEvents->the_post();
-              get_template_part('template-parts/content-event');
-             }
-
-            }
+           
             wp_reset_postdata();
             $relatedCampuses = get_field('related_campus');
 
