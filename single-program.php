@@ -88,12 +88,15 @@
             $relatedCampuses = get_field('related_campus');
 
             if ($relatedCampuses){
+              echo '<hr class="section-break">';
               echo '<h2 class="headline headline--medium">'.get_the_title().' is Available at these Campuses:</h2>';
+              echo '<ul class="min-list link-list">';
 
               forEach($relatedCampuses as $campus){?>
                   <li><a href="<?php echo get_the_permalink($campus)  ?>"><?php echo get_the_title($campus) ?></a></li>
              <?php }
             }
+            echo '</ul>';
           ?>
         </div>
 
