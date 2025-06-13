@@ -4136,14 +4136,19 @@ class Search {
   }
 
   // 3. methods (function, action...)
-  typingLogic(e) {
+  typingLogic() {
     if (this.searchInput.val() != this.previousValue) {
       clearTimeout(this.typingTimer);
-      if (!this.isSpinnerLoading) {
-        this.resultsDiv.html('<div class="spinner-loader"></div>');
-        this.isSpinnerLoading = true;
+      if (this.searchInput.val()) {
+        if (!this.isSpinnerLoading) {
+          this.resultsDiv.html('<div class="spinner-loader"></div>');
+          this.isSpinnerLoading = true;
+        }
+        this.typingTimer = setTimeout(this.getResults.bind(this), 2000);
+      } else {
+        this.resultsDiv.html("");
+        this.isSpinnerLoading = false;
       }
-      this.typingTimer = setTimeout(this.getResults.bind(this), 2000);
     }
     ;
     this.previousValue = this.searchInput.val();
@@ -4153,7 +4158,7 @@ class Search {
     this.isSpinnerLoading = false;
   }
   keyPressDispacher(e) {
-    if (e.keyCode === 83 && !this.openOverlay) {
+    if (e.keyCode === 83 && !this.openOverlay && !jquery__WEBPACK_IMPORTED_MODULE_0___default()("input, textarea").is(":focus")) {
       this.openOveralay();
     }
     if (e.keyCode === 27 && this.openOverlay) {
