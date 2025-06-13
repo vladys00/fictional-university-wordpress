@@ -8,19 +8,24 @@ class Search {
         this.searchInput = $("#search-term");
         this.events();
         this.openOverlay = false;
+        this.typingTimer;
     }
     // 2. events
     events(){
         this.openButton.on("click",  this.openOveralay.bind(this));
         this.closeButton.on("click", this.closeOveralay.bind(this));
         $(document).on("keydown", this.keyPressDispacher.bind(this));
-        this.searchInput.on("keydown", this.typingLogic);
+        this.searchInput.on("keydown", this.typingLogic.bind(this));
     }
     
 
     // 3. methods (function, action...)
-    typingLogic(){
-        
+    typingLogic(e){
+        clearTimeout(this.typingTimer); 
+        this.typingTimer = setTimeout(() => {
+            console.log("key pressed -->");
+        }, 2000);
+
     }
     keyPressDispacher(e){
         if (e.keyCode === 83 && !this.openOverlay) {
