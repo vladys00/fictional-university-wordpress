@@ -4154,14 +4154,15 @@ class Search {
     this.previousValue = this.searchInput.val();
   }
   getResults() {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON('http://fictional-university.local/wp-json/wp/v2/posts?search=' + this.searchInput.val(), posts => {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.val(), posts => {
       this.resultsDiv.html(`
             <h2 class="search-overlay__section-title">Search Results:</h2>
                 ${posts.lenth ? '<ul class="link-list min-list">' : '<p class="no-results">No general information matches that search.</p>'}
                     ${posts.map(post => `<li><a href="${post.link}">${post.title.rendered}</a></li>`).join("")}
-                ${posts.lenth ? '</ul>' : ''}`);
+                ${posts.lenth ? '</ul>' : ''}
+                `);
+      this.isSpinnerLoading = false;
     });
-    this.isSpinnerLoading = false;
   }
   keyPressDispacher(e) {
     if (e.keyCode === 83 && !this.openOverlay && !jquery__WEBPACK_IMPORTED_MODULE_0___default()("input, textarea").is(":focus")) {
