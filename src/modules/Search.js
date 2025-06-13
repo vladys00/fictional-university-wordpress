@@ -42,11 +42,11 @@ class Search {
 
     getResults(){
         $.getJSON('http://fictional-university.local/wp-json/wp/v2/posts?search=' + this.searchInput.val(), 
-        (posts)=>{
-            this.resultsDiv.html(`<h2 class="search-overlay__section-title">Search Results:</h2>
-                                    <ul class="link-list min-list">
-                                    ${posts.map(post => `<li><a href="${post.link}">${post.title.rendered}</a></li>`).join("")}
-                                    </ul>`);
+        (posts)=>{this.resultsDiv.html(`
+            <h2 class="search-overlay__section-title">Search Results:</h2>
+                ${posts.lenth  ? '<ul class="link-list min-list">' : '<p class="no-results">No general information matches that search.</p>'}
+                    ${posts.map(post => `<li><a href="${post.link}">${post.title.rendered}</a></li>`).join("")}
+                ${posts.lenth  ? '</ul>' : ''}`);
         })
         this.isSpinnerLoading = false;
     }
