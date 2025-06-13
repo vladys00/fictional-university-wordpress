@@ -4121,11 +4121,11 @@ class Search {
     this.searchOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay");
     this.searchInput = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#search-term");
     this.resultsDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#search-overlay__results");
-    this.events();
     this.openOverlay = false;
     this.isSpinnerLoading = false;
     this.previousValue;
     this.typingTimer;
+    this.events();
   }
   // 2. events
   events() {
@@ -4154,7 +4154,12 @@ class Search {
     this.previousValue = this.searchInput.val();
   }
   getResults() {
-    this.resultsDiv.html("Some tset inner html");
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON('http://fictional-university.local/wp-json/wp/v2/posts?search=' + this.searchInput.val(), posts => {
+      this.resultsDiv.html(`<h2 class="search-overlay__section-title">Search Results:</h2>
+                                    <ul class="link-list min-list">
+                                    ${posts.map(post => `<li><a href="${post.link}">${post.title.rendered}</a></li>`).join("")}
+                                    </ul>`);
+    });
     this.isSpinnerLoading = false;
   }
   keyPressDispacher(e) {
