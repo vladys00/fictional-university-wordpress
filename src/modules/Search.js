@@ -7,11 +7,11 @@ class Search {
         this.searchOverlay = $(".search-overlay");
         this.searchInput = $("#search-term");
         this.resultsDiv = $("#search-overlay__results");
-        this.events();
         this.openOverlay = false;
         this.isSpinnerLoading = false;
         this.previousValue;
         this.typingTimer;
+        this.events();
     }
     // 2. events
     events(){
@@ -25,17 +25,17 @@ class Search {
     // 3. methods (function, action...)
     typingLogic(){
         if (this.searchInput.val() !=  this.previousValue){
-             clearTimeout(this.typingTimer);
-        if(this.searchInput.val()){
-            if (!this.isSpinnerLoading){
-            this.resultsDiv.html('<div class="spinner-loader"></div>'); 
-            this.isSpinnerLoading = true;
-        }
-        this.typingTimer = setTimeout( this.getResults.bind(this), 2000);
-        } else {
-            this.resultsDiv.html("");
-            this.isSpinnerLoading = false;
-        }
+            clearTimeout(this.typingTimer);
+            if(this.searchInput.val()){
+                if (!this.isSpinnerLoading){
+                this.resultsDiv.html('<div class="spinner-loader"></div>'); 
+                this.isSpinnerLoading = true;
+            }
+            this.typingTimer = setTimeout( this.getResults.bind(this), 2000);
+            } else {
+                this.resultsDiv.html("");
+                this.isSpinnerLoading = false;
+            }
         };
         this.previousValue = this.searchInput.val();
     }
