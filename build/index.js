@@ -4119,6 +4119,7 @@ class Search {
     this.openButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".js-search-trigger");
     this.closeButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay__close");
     this.searchOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay");
+    this.searchInput = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#search-term");
     this.events();
     this.openOverlay = false;
   }
@@ -4127,9 +4128,11 @@ class Search {
     this.openButton.on("click", this.openOveralay.bind(this));
     this.closeButton.on("click", this.closeOveralay.bind(this));
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("keydown", this.keyPressDispacher.bind(this));
+    this.searchInput.on("keydown", this.typingLogic);
   }
 
-  // 3. merhods (function, action...)
+  // 3. methods (function, action...)
+  typingLogic() {}
   keyPressDispacher(e) {
     if (e.keyCode === 83 && !this.openOverlay) {
       this.openOveralay();
@@ -4141,13 +4144,11 @@ class Search {
   openOveralay() {
     this.searchOverlay.addClass("search-overlay--active");
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
-    console.log("Search overlay opened");
     this.openOverlay = true;
   }
   closeOveralay() {
     this.searchOverlay.removeClass("search-overlay--active");
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
-    console.log("Search overlay closed"); // or any other action you want to perform after close.  e.g., hide the search input field.
     this.openOverlay = false;
   }
 }
