@@ -4124,6 +4124,7 @@ class Search {
     this.events();
     this.openOverlay = false;
     this.isSpinnerLoading = false;
+    this.previousValue;
     this.typingTimer;
   }
   // 2. events
@@ -4131,17 +4132,21 @@ class Search {
     this.openButton.on("click", this.openOveralay.bind(this));
     this.closeButton.on("click", this.closeOveralay.bind(this));
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("keydown", this.keyPressDispacher.bind(this));
-    this.searchInput.on("keydown", this.typingLogic.bind(this));
+    this.searchInput.on("keyup", this.typingLogic.bind(this));
   }
 
   // 3. methods (function, action...)
   typingLogic(e) {
-    clearTimeout(this.typingTimer);
-    if (!this.isSpinnerLoading) {
-      this.resultsDiv.html('<div class="spinner-loader"></div>');
-      this.isSpinnerLoading = true;
+    if (this.searchInput.val() != this.previousValue) {
+      clearTimeout(this.typingTimer);
+      if (!this.isSpinnerLoading) {
+        this.resultsDiv.html('<div class="spinner-loader"></div>');
+        this.isSpinnerLoading = true;
+      }
+      this.typingTimer = setTimeout(this.getResults.bind(this), 2000);
     }
-    this.typingTimer = setTimeout(this.getResults.bind(this), 2000);
+    ;
+    this.previousValue = this.searchInput.val();
   }
   getResults() {
     this.resultsDiv.html("Some tset inner html");
