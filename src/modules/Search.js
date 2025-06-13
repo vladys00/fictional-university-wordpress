@@ -6,8 +6,10 @@ class Search {
         this.closeButton = $(".search-overlay__close");
         this.searchOverlay = $(".search-overlay");
         this.searchInput = $("#search-term");
+        this.resultsDiv = $("#search-overlay__results");
         this.events();
         this.openOverlay = false;
+        this.isSpinnerLoading = false;
         this.typingTimer;
     }
     // 2. events
@@ -21,11 +23,17 @@ class Search {
 
     // 3. methods (function, action...)
     typingLogic(e){
-        clearTimeout(this.typingTimer); 
-        this.typingTimer = setTimeout(() => {
-            console.log("key pressed -->");
-        }, 2000);
+        clearTimeout(this.typingTimer);
+        if (!this.isSpinnerLoading){
+            this.resultsDiv.html('<div class="spinner-loader"></div>'); 
+            this.isSpinnerLoading = true;
+        }
+        this.typingTimer = setTimeout( this.getResults.bind(this), 2000);
+    }
 
+    getResults(){
+        this.resultsDiv.html("Some tset inner html");
+        this.isSpinnerLoading = false;
     }
     keyPressDispacher(e){
         if (e.keyCode === 83 && !this.openOverlay) {
