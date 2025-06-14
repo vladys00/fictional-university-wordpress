@@ -42,16 +42,20 @@ class Search {
     }
 
     getResults(){
-        $.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.val(), 
-        (posts)=>{this.resultsDiv.html(`
-            <h2 class="search-overlay__section-title">Search Results:</h2>
-                ${posts.lenth  ? '<ul class="link-list min-list">' : '<p class="no-results">No general information matches that search.</p>'}
-                    ${posts.map(post => `<li><a href="${post.link}">${post.title.rendered}</a></li>`).join("")}
-                ${posts.lenth  ? '</ul>' : ''}
-                `);
-            this.isSpinnerLoading = false;
+        $.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.val(), (posts)=>{
+            $.getJSON(universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchInput.val() , (pages) => {
+                let results = posts.concat(pages);
+                this.resultsDiv.html(`
+                    <h2 class="search-overlay__section-title">Search Results:</h2>
+                        ${results.length  ? '<ul class="link-list min-list">' : '<p class="no-results">No general information matches that search.</p>'}
+                            ${results.map(post => `<li><a href="${post.link}">${post.title.rendered}</a></li>`).join("")}
+                            ${results.length  ? '</ul>' : ''}
+                            `);
+                this.isSpinnerLoading = false;
+            })
         })
     }
+
     keyPressDispacher(e){
         if (e.keyCode === 83 && !this.openOverlay && !$("input, textarea").is(":focus"))  {
             this.openOveralay();

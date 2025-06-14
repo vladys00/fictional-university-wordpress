@@ -17,9 +17,7 @@ pageBanner(array(
                         <?php echo $mapLocation['address']; ?>
                     </p>
                 </div>
-            <?php }
-            echo paginate_links()
-            ?> 
+            <?php } ?> 
         </div>
      </div>
 <?php get_footer();
