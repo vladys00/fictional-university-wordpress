@@ -45,7 +45,7 @@ class Search {
         $.when(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.val(),
         universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchInput.val() )
         .then((posts, pages)=>{
-            let results = posts.concat(pages);
+            let results = posts[0].concat(pages[0]);
                 this.resultsDiv.html(`
                     <h2 class="search-overlay__section-title">Search Results:</h2>
                         ${results.length  ? '<ul class="link-list min-list">' : '<p class="no-results">No general information matches that search.</p>'}
