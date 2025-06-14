@@ -54,6 +54,9 @@ class Search {
                             ${results.length  ? '</ul>' : ''}
                             `);
                 this.isSpinnerLoading = false;
+        }, ()=>{
+            this.resultsDiv.html("<p class='error-message'>An error occurred while fetching search results.</p>");
+            this.isSpinnerLoading = false;
         })
     }
 
