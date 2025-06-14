@@ -42,8 +42,9 @@ class Search {
     }
 
     getResults(){
-        $.when(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.val(),
-        universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchInput.val() )
+        $.when(
+        $.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.val()),
+        $.getJSON(universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchInput.val()))
         .then((posts, pages)=>{
             let results = posts[0].concat(pages[0]);
                 this.resultsDiv.html(`
