@@ -8,6 +8,17 @@ if (file_exists(__DIR__ . '/.env')) {
         putenv(trim($name) . '=' . trim($value));
     }
 }
+// Customizing the rest api
+
+function university_custom_rest_api () {
+    register_rest_field('post','authorname',array(
+        'get_callback' => function () {return get_the_author();} 
+    ))
+}
+
+add_action('rest_api_init','university_custom_rest_api');
+
+// Custom template tags
 
 function pageBanner($args = NULL) {
     // Title
