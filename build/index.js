@@ -4160,7 +4160,7 @@ class Search {
       this.resultsDiv.html(`
                     <h2 class="search-overlay__section-title">Search Results:</h2>
                         ${results.length ? '<ul class="link-list min-list">' : '<p class="no-results">No general information matches that search.</p>'}
-                            ${results.map(post => `<li><a href="${post.link}">${post.title.rendered}</a> by ${post.authorname}</li>`).join("")}
+                            ${results.map(post => `<li><a href="${post.link}">${post.title.rendered}</a> ${post.type == 'post' ? `by ${post.authorname}` : ""}</li>`).join("")}
                             ${results.length ? '</ul>' : ''}
                             `);
       this.isSpinnerLoading = false;
