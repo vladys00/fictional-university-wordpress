@@ -1,4 +1,5 @@
 <?php
+require get_theme_file_path('/inc/search-route.php');
 
 if (file_exists(__DIR__ . '/.env')) {
     $lines = file(__DIR__ . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -13,7 +14,7 @@ if (file_exists(__DIR__ . '/.env')) {
 function university_custom_rest_api () {
     register_rest_field('post','authorname',array(
         'get_callback' => function () {return get_the_author();} 
-    ));
+    )); 
 }
 
 add_action('rest_api_init','university_custom_rest_api');
