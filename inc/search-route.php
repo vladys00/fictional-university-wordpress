@@ -44,6 +44,7 @@ function universitySearchResults ($data) {
             array_push($results['programs'], array(
             'title' => get_the_title(),
             'permalink' => get_permalink(),
+            'id'=> get_the_ID(),
         ));
         }
          if (get_post_type() == 'event') {
@@ -80,7 +81,7 @@ function universitySearchResults ($data) {
             array(
                 'key' => 'related_programs',
                 'compare' => 'LIKE',
-                'value' => '"70"'
+                'value' => '"' . $results['programs'][0]['id']. '"',
             )
         )
     ));
