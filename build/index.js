@@ -4161,7 +4161,7 @@ class Search {
                     <div class="one-third">
                         <h2 class="search-overlay__section-title">General Information</h2>
                         ${results.generalInfo.length ? '<ul class="link-list min-list">' : '<p class="no-results">No general information matches that search.</p>'}
-                        ${results.generalInfo.map(post => `<li><a href="${post.link}">${post.title.rendered}</a> ${post.type == 'post' ? `by ${post.authorname}` : ""}</li>`).join("")}
+                        ${results.generalInfo.map(post => `<li><a href="${post.permalink}">${post.title}</a> ${post.postType == 'post' ? `by ${post.authorName}` : ""}</li>`).join("")}
                         ${results.generalInfo.length ? '</ul>' : ''}
                     </div>
                     <div class="one-third">
