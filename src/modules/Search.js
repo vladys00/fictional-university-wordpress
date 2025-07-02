@@ -58,6 +58,18 @@ class Search {
                         ${results.programs.length  ? '</ul>' : ''}
 
                         <h2 class="search-overlay__section-title">Professors</h2>
+
+                        ${results.professors.length  ? '<ul class="professor-cards">' : `<p class="no-results">No professors matches that search.</p>`}
+                        ${results.professors.map(item => `
+                            <li class="professor-card__list-item">
+                                <a class="professor-card" href="${ item.permalink}">
+                                <img class="professor-card__image" src="${item.image}" alt="">
+                                <span class="professor-card__name">${item.title}</span>
+                                </a>
+                            </li>
+                            `).join("")}
+                        ${results.professors.length  ? '</ul>' : ''}
+
                     </div>
                     <div class="one-third">
                         <h2 class="search-overlay__section-title">Campuses</h2>
@@ -72,24 +84,6 @@ class Search {
             this.isSpinnerLoading = false;
             
         })
-
-        // delete this code later
-        // $.when(
-        // $.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.val()),
-        // $.getJSON(universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchInput.val()))
-        // .then((posts, pages)=>{
-        //     let results = posts[0].concat(pages[0]);
-        //         this.resultsDiv.html(`
-        //             <h2 class="search-overlay__section-title">Search Results:</h2>
-        //                 ${results.length  ? '<ul class="link-list min-list">' : '<p class="no-results">No general information matches that search.</p>'}
-        //                     ${results.map(post => `<li><a href="${post.link}">${post.title.rendered}</a> ${post.type == 'post' ? `by ${post.authorname}` : "" }</li>`).join("")}
-        //                     ${results.length  ? '</ul>' : ''}
-        //                     `);
-        //         this.isSpinnerLoading = false;
-        // }, ()=>{
-        //     this.resultsDiv.html("<p class='error-message'>An error occurred while fetching search results.</p>");
-        //     this.isSpinnerLoading = false;
-        // });
     }
 
     keyPressDispacher(e){
