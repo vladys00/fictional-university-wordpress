@@ -15,7 +15,7 @@
                     <span class="metabox__main"><?php the_title() ?></span>
                 </p>
             </div>
-            <p><?php the_content() ;?></p>
+            <p><?php the_field('main_body_content') ;?></p>
 
 
             <?php 
