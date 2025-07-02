@@ -4155,19 +4155,46 @@ class Search {
     this.previousValue = this.searchInput.val();
   }
   getResults() {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default().when(jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.val()), jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchInput.val())).then((posts, pages) => {
-      let results = posts[0].concat(pages[0]);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(universityData.root_url + '/wp-json/university/v1/search?term=' + this.searchInput.val(), results => {
       this.resultsDiv.html(`
-                    <h2 class="search-overlay__section-title">Search Results:</h2>
-                        ${results.length ? '<ul class="link-list min-list">' : '<p class="no-results">No general information matches that search.</p>'}
-                            ${results.map(post => `<li><a href="${post.link}">${post.title.rendered}</a> ${post.type == 'post' ? `by ${post.authorname}` : ""}</li>`).join("")}
-                            ${results.length ? '</ul>' : ''}
-                            `);
-      this.isSpinnerLoading = false;
-    }, () => {
-      this.resultsDiv.html("<p class='error-message'>An error occurred while fetching search results.</p>");
-      this.isSpinnerLoading = false;
+                <div class="row">
+                    <div class="one-third">
+                        <h2 class="search-overlay__section-title">General Information</h2>
+                        ${results.generalInfo.length ? '<ul class="link-list min-list">' : '<p class="no-results">No general information matches that search.</p>'}
+                        ${results.generalInfo.map(post => `<li><a href="${post.link}">${post.title.rendered}</a> ${post.type == 'post' ? `by ${post.authorname}` : ""}</li>`).join("")}
+                        ${results.generalInfo.length ? '</ul>' : ''}
+                    </div>
+                    <div class="one-third">
+                        <h2 class="search-overlay__section-title" >Programs</h2>
+
+                        <h2 class="search-overlay__section-title">Professors</h2>
+                    </div>
+                    <div class="one-third">
+                        <h2 class="search-overlay__section-title">Campuses</h2>
+
+                        <h2 class="search-overlay__section-title">Events</h2>
+                    </div>
+                </div>    
+            `);
     });
+
+    // delete this code later
+    // $.when(
+    // $.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchInput.val()),
+    // $.getJSON(universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchInput.val()))
+    // .then((posts, pages)=>{
+    //     let results = posts[0].concat(pages[0]);
+    //         this.resultsDiv.html(`
+    //             <h2 class="search-overlay__section-title">Search Results:</h2>
+    //                 ${results.length  ? '<ul class="link-list min-list">' : '<p class="no-results">No general information matches that search.</p>'}
+    //                     ${results.map(post => `<li><a href="${post.link}">${post.title.rendered}</a> ${post.type == 'post' ? `by ${post.authorname}` : "" }</li>`).join("")}
+    //                     ${results.length  ? '</ul>' : ''}
+    //                     `);
+    //         this.isSpinnerLoading = false;
+    // }, ()=>{
+    //     this.resultsDiv.html("<p class='error-message'>An error occurred while fetching search results.</p>");
+    //     this.isSpinnerLoading = false;
+    // });
   }
   keyPressDispacher(e) {
     if (e.keyCode === 83 && !this.openOverlay && !jquery__WEBPACK_IMPORTED_MODULE_0___default()("input, textarea").is(":focus")) {
